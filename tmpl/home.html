@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products with Pagination</title>
+    <link rel="stylesheet" href="">
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f4f4f9;
+        color: #333;
+        line-height: 1.6;
+    }
+    header {
+        background-color: #000;
+        padding: 20px;
+        text-align: center;
+        color: #ff6600;
+        font-size: 1.5rem;
+        font-weight: bold;
+        font-family: 'Playfair Display', serif;
+    }
+    nav {
+        display: flex;
+        justify-content: center;
+        background-color: #000;
+        padding: 10px;
+    }
+    nav a {
+        text-decoration: none;
+        color: #ff6600;
+        margin: 0 15px;
+        font-size: 1rem;
+        font-family: 'Roboto', sans-serif;
+        transition: color 0.3s ease;
+    }
+    nav a:hover {
+        color: #fff;
+    }
+    .hero {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 40px;
+        background-color: #fff;
+        color: #000;
+    }
+    .hero-text {
+        max-width: 50%;
+    }
+    .hero-text h1 {
+        font-size: 3rem;
+        color: #000;
+        font-family: 'Playfair Display', serif;
+    }
+    .hero-text p {
+        font-size: 1.2rem;
+        margin: 20px 0;
+        font-family: 'Roboto', sans-serif;
+    }
+    .hero img {
+        max-width: 40%;
+        border-radius: 10px;
+    }
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        padding: 20px;
+    }
+    .product-card {
+        background: #000;
+        border: 1px solid #ff6600;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        max-width: 300px;
+        text-align: center;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+        font-family: 'Roboto', sans-serif;
+    }
+    .product-card:hover {
+        transform: scale(1.05);
+    }
+    .product-card img {
+        width: 100%;
+        height: auto;
+        border-bottom: 1px solid #ff6600;
+    }
+    .product-card h2 {
+        font-size: 1.5rem;
+        margin: 10px 0;
+        color: #ff6600;
+        font-family: 'Playfair Display', serif;
+    }
+    .product-card p {
+        margin: 10px;
+        font-size: 1rem;
+        color: #ddd;
+        font-family: 'Roboto', sans-serif;
+    }
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin: 20px 0;
+    }
+    .pagination a {
+        text-decoration: none;
+        margin: 0 5px;
+        padding: 10px 15px;
+        border: 1px solid #ff6600;
+        border-radius: 5px;
+        background-color: #000;
+        color: #ff6600;
+        transition: background 0.3s ease, color 0.3s ease;
+        font-family: 'Roboto', sans-serif;
+    }
+    .pagination a:hover {
+        background-color: #ff6600;
+        color: #000;
+    }
+    .pagination a.disabled {
+        background-color: #444;
+        color: #888;
+        pointer-events: none;
+        cursor: not-allowed;
+    }
+</style>
+</head>
+<body>
+   <div><h1>Product List</h1></div>
+    <div class="container" id="product-list">
+        {{range .Products}}
+        <div class="product-card">
+            <img src="{{.ImageURL}}" alt="{{.Name}}">
+            <h2>{{.Name}}</h2>
+            <p>{{.Description}}</p>
+            <p><strong>Price: ${{printf "%.2f" .Price}}</strong></p>
+        </div>
+        {{end}}
+    </div>
+
+    <div class="pagination">
+        {{if .PreviousPage}}
+        <a href="/home?page={{.PreviousPage}}">Previous</a>
+        {{else}}
+        <a href="#" class="disabled">Previous</a>
+        {{end}}
+    
+        {{if .NextPage}}
+        <a href="/home?page={{.NextPage}}">Next</a>
+        {{else}}
+        <a href="#" class="disabled">Next</a>
+        {{end}}
+    </div>
+</body>
+</html>
